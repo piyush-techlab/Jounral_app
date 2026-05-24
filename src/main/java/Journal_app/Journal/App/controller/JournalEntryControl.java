@@ -27,22 +27,22 @@ public class JournalEntryControl {
     }
 
     @GetMapping ("id/{map_id}")
-    public JournalEntry getDetails_byID(@PathVariable int map_id)
+    public JournalEntry getDetailsByID(@PathVariable int map_id)
     {
         return journalEntries.get(map_id);
     }
 
     @DeleteMapping ("id/{map_id}")
-    public boolean deletedeatilsby_id(@PathVariable int map_id)
+    public boolean deleteById(@PathVariable int map_id)
     {
         journalEntries.remove(map_id);
         return true;
     }
 
     @PutMapping ("id/{map_id}")
-    public boolean updatedeatilsby_id(@PathVariable int map_id, @RequestBody JournalEntry journalentry)
+    public boolean updateById(@PathVariable int map_id, @RequestBody JournalEntry journalentry)
     {
-        journalEntries.put(journalentry.getId(), journalentry);
+        journalEntries.put(map_id, journalentry);
         return true;
     }
 
