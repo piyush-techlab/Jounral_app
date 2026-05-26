@@ -3,7 +3,7 @@ package Journal_app.Journal.App.entry;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("JournalEntry_repo") //ORM mapping Java class with collection
+@Document("JournalEntryTest") //ORM mapping Java class with collection
 public class JournalEntry {
 
 
@@ -14,27 +14,33 @@ public class JournalEntry {
 
     private String title;
 
-    public String getContent() {
+    public String getContent()
+    {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(String content)
+    {
         this.content = content;
     }
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-    public String getTitle() {
+    public String getTitle()
+    {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(String title)
+    {
         this.title = title;
     }
 

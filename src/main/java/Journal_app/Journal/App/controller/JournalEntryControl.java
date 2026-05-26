@@ -1,10 +1,9 @@
 package Journal_app.Journal.App.controller;
 
 import Journal_app.Journal.App.entry.JournalEntry;
-import Journal_app.Journal.App.services.JournalEntryService;
+import Journal_app.Journal.App.services.WorkerClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 @RestController
@@ -12,40 +11,40 @@ import java.util.*;
 public class JournalEntryControl {
 
     @Autowired
-    private JournalEntryService journalEntryService;
+    private WorkerClass workerClass;
 
     @GetMapping
-    public List<JournalEntry> getALL()
+    public List<JournalEntry> getEntries()
     {
-      return journalEntryService.getAllEntries();
+        return workerClass.getEntries();
     }
 
     @PostMapping
-    public boolean setValues(@RequestBody JournalEntry journalEntry)
+    public boolean postEntries(@RequestBody JournalEntry journalEntry)
     {
-
-        journalEntryService.saveEntry(journalEntry);
-        return true;
-
-    }
-
-    @GetMapping ("id/{map_id}")
-    public JournalEntry getDetailsByID(@PathVariable int map_id)
-    {
-        return journalEntryService.getEntryById(map_id).orElse(null);
-    }
-
-    @DeleteMapping ("id/{map_id}")
-    public boolean deleteById(@PathVariable int map_id)
-    {
-        journalEntryService.delEntry(map_id);
+        workerClass.postEntries(journalEntry);
         return true;
     }
 
-    @PutMapping ("id/{map_id}")
-    public boolean updateById(@PathVariable int map_id, @RequestBody JournalEntry journalentry)
+    @DeleteMapping("/id/{map_id}")
+    public boolean deleteEntriesByID(@PathVariable int map_id)
     {
+        workerClass.deleteEntryByID(map_id);
         return true;
     }
+
+    @GetMapping("/id/{map_id}")
+
+    public JournalEntry getEntryByID(@PathVariable int map_id)
+    {
+        return workerClass.getEntryByID(map_id);
+    }
+
+    @PutMapping
+    public void updateEntries()
+    {
+
+    }
+
 
 }
