@@ -1,7 +1,26 @@
 package Journal_app.Journal.App.entry;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document("JournalEntry_repo") //ORM mapping Java class with collection
 public class JournalEntry {
+
+
+    @Id
+    private int id;
+
+    private String content;
+
+    private String title;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public int getId() {
         return id;
@@ -11,14 +30,6 @@ public class JournalEntry {
         this.id = id;
     }
 
-    public String getContent() {
-        return Content;
-    }
-
-    public void setContent(String content) {
-        Content = content;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -26,11 +37,5 @@ public class JournalEntry {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    private int id;
-    private String Content;
-    private String title;
-
-
 
 }

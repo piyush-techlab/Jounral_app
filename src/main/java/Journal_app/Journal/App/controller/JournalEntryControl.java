@@ -1,48 +1,50 @@
 package Journal_app.Journal.App.controller;
 
 import Journal_app.Journal.App.entry.JournalEntry;
+import Journal_app.Journal.App.services.JournalEntryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.*;
 
 @RestController
 @RequestMapping("/Journal")
 public class JournalEntryControl {
 
-    Map<Integer , JournalEntry> journalEntries = new HashMap();
+    @Autowired
+    private JournalEntryService journalEntryService;
 
     @GetMapping
     public List<JournalEntry> getALL()
     {
-        return new ArrayList<>(journalEntries.values());
+      return journalEntryService.getAllEntries();
     }
 
     @PostMapping
-    public boolean setValues(@RequestBody JournalEntry journalentry)
+    public boolean setValues(@RequestBody JournalEntry journalEntry)
     {
-        journalEntries.put(journalentry.getId(), journalentry);
+
+        journalEntryService.saveEntry(journalEntry);
         return true;
+
     }
 
     @GetMapping ("id/{map_id}")
     public JournalEntry getDetailsByID(@PathVariable int map_id)
     {
-        return journalEntries.get(map_id);
+        return journalEntryService.getEntryById(map_id).orElse(null);
     }
 
     @DeleteMapping ("id/{map_id}")
     public boolean deleteById(@PathVariable int map_id)
     {
-        journalEntries.remove(map_id);
+        journalEntryService.delEntry(map_id);
         return true;
     }
 
     @PutMapping ("id/{map_id}")
     public boolean updateById(@PathVariable int map_id, @RequestBody JournalEntry journalentry)
     {
-        journalEntries.put(map_id, journalentry);
         return true;
     }
 
