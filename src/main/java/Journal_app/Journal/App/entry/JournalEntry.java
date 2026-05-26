@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("JournalEntryTest") //ORM mapping Java class with collection
 public class JournalEntry {
 
-
+    //Merge to Main Successful post approval
     @Id
     private int id;
 
