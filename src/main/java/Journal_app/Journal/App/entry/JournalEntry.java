@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class JournalEntry {
 
     //Merge to Main Successful post approval
+    //Jira Merge
     @Id
     private int id;
 
