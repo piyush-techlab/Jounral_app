@@ -20,9 +20,9 @@ public class WorkerClass
         return journalRepository.findAll();
     }
 
-    public JournalEntry getEntryByID(int map_id)
+    public Optional<JournalEntry> getEntryByID(int map_id)
     {
-        return journalRepository.findById(map_id).orElse(null);
+        return journalRepository.findById(map_id);
     }
 
     public void postEntries(JournalEntry user_entries)
@@ -33,6 +33,11 @@ public class WorkerClass
     public void deleteEntryByID(int map_id)
     {
         journalRepository.deleteById(map_id);
+    }
+
+    public void postEntryByID()
+    {
+
     }
 
 
