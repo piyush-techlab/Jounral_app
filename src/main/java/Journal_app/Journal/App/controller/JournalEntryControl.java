@@ -27,45 +27,45 @@ public class JournalEntryControl {
     @Autowired
     private UserWorkerClass userWorkerClass;
 
-    @GetMapping ("/username")
+    @GetMapping ("/{username}")
     public ResponseEntity<?> getEntries(@PathVariable String username)
     {
-        User user = userRepository.findByUsername(username);
-        return new ResponseEntity<>(user,HttpStatus.OK);
+       User user = userRepository.findByUsername(username);
+
+       if(user !=null)
+       {
+           return new ResponseEntity<>(user,HttpStatus.OK);
+       }
+       else
+       {
+           throw new RuntimeException("User not found");
+       }
+
     }
 
-    @PostMapping ("/username")
+    @PostMapping ("/{username}")
     public ResponseEntity<?> postEntries(@RequestBody JournalEntry journalEntry, @PathVariable String username)
     {
-
         workerClass.postEntries(journalEntry,username);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @DeleteMapping("/id/{map_id}")
-//    public ResponseEntity<?> deleteEntriesByID(@PathVariable int map_id)
-//    {
-//        workerClass.deleteEntryByID(map_id);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
-//
-//    @GetMapping("/id/{map_id}")
-//
-//    public ResponseEntity<JournalEntry> getEntryByID(@PathVariable int map_id)
-//    {
-//        Optional<JournalEntry> journalEntry = workerClass.getEntryByID(map_id);
-//        if (journalEntry.isPresent())
-//        {
-//            return new ResponseEntity<>(journalEntry.get(),HttpStatus.OK);
-//        }
-//
-//        else
-//        {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//
-//    }
-//
+
+    @DeleteMapping("/user/{username}")
+    public ResponseEntity<?> deleteByUsername(@PathVariable String username)
+    {
+        workerClass.deleteUserByUsername(username);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
+
+    @PutMapping("/user/{username}")
+    public ResponseEntity<?> updateByUsername(@RequestBody User user, @PathVariable String username)
+    {
+        return new ResponseEntity<>(workerClass.updateEntryByUsername(user,username), HttpStatus.OK);
+    }
+
+
 //    @PutMapping("id/{map_id}")
 //    public ResponseEntity<JournalEntry> updateEntries(@PathVariable int map_id, @RequestBody JournalEntry myentry)
 //    {

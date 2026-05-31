@@ -44,14 +44,36 @@ public class WorkerClass
         userRepository.save(user);
 
     }
-
-    public void deleteEntryByID(int map_id)
+    public void deleteUserByUsername(String username)
     {
-        journalRepository.deleteById(map_id);
+        User user = userRepository.findByUsername(username);
+
+        if (user != null)
+        {
+            userRepository.delete(user);
+        }
+        else
+        {
+            throw new RuntimeException("User not found");
+        }
     }
 
-    public void postEntryByID()
+
+    public User updateEntryByUsername(User user, String username)
     {
+
+        User old = userRepository.findByUsername(username);
+        if (old !=null)
+        {
+            old.setUsername(user.getUsername() != null && !user.getUsername().equals("") ? user.getUsername() : old.getUsername());
+            old.setUsername(user.getPassword() != null && !user.getPassword().equals("") ? user.getPassword() :old.getPassword());
+            return old;
+        }
+        else
+        {
+            throw new RuntimeException("User not found");
+        }
+
 
     }
 

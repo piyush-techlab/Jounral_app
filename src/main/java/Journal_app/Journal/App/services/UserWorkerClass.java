@@ -4,10 +4,12 @@ import Journal_app.Journal.App.entry.JournalEntry;
 import Journal_app.Journal.App.entry.User;
 import Journal_app.Journal.App.repository.JournalRepository;
 import Journal_app.Journal.App.repository.UserRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
