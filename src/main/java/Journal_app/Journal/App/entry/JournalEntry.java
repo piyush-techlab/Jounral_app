@@ -1,48 +1,18 @@
 package Journal_app.Journal.App.entry;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("JournalEntryTest") //ORM mapping Java class with collection
+@Data //LombokProject - Creating geter and setter in run time
 public class JournalEntry {
 
-    //Merge to Main Successful post approval
-    //Jira Merge
     @Id
     private int id;
 
     private String content;
 
     private String title;
-
-    public String getContent()
-    {
-        return content;
-    }
-
-    public void setContent(String content)
-    {
-        this.content = content;
-    }
-
-    public int getId()
-    {
-        return id;
-    }
-
-    public void setId(int id)
-    {
-        this.id = id;
-    }
-
-    public String getTitle()
-    {
-        return title;
-    }
-
-    public void setTitle(String title)
-    {
-        this.title = title;
-    }
 
 }
