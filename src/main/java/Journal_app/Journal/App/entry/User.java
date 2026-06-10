@@ -20,7 +20,7 @@ public class User
     @Id
     private String userid;
 
-    @Indexed()
+    @Indexed(unique = true)
     @NonNull
     private String username;
 

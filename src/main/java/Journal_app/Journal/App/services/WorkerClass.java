@@ -6,6 +6,7 @@ import Journal_app.Journal.App.repository.JournalRepository;
 import Journal_app.Journal.App.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -30,6 +31,10 @@ public class WorkerClass
         return journalRepository.findById(map_id);
     }
 
+    @Transactional// Work of Transtional is to refer the class -
+    // if any line fails to execute it rollback the previous task to ensure Task is fully complete or Don't complete ,
+    // It is called Atomicity- @Transtional Anotation required replication in MongoDB so thta it will not throw error.
+
     public void postEntries(JournalEntry user_entries, String username)
     {
         User user = userRepository.findByUsername(username);
@@ -38,10 +43,15 @@ public class WorkerClass
         {
             throw new RuntimeException("User not found");
         }
-
-        JournalEntry saveEntries =  journalRepository.save(user_entries);
-        user.getJournalEntryList().add(saveEntries);
-        userRepository.save(user);
+        try {
+            JournalEntry saveEntries = journalRepository.save(user_entries);
+            user.getJournalEntryList().add(saveEntries);
+            userRepository.save(user);
+        } catch (Exception e)
+        {
+            System.out.println(e);
+            throw new RuntimeException("Error fetching data");
+        }
 
     }
     public void deleteUserByUsername(String username)
@@ -58,24 +68,18 @@ public class WorkerClass
         }
     }
 
-
     public User updateEntryByUsername(User user, String username)
     {
-
         User old = userRepository.findByUsername(username);
         if (old !=null)
         {
             old.setUsername(user.getUsername() != null && !user.getUsername().equals("") ? user.getUsername() : old.getUsername());
-            old.setUsername(user.getPassword() != null && !user.getPassword().equals("") ? user.getPassword() :old.getPassword());
+            old.setPassword(user.getPassword() != null && !user.getPassword().equals("") ? user.getPassword() :old.getPassword());
             return old;
         }
         else
         {
             throw new RuntimeException("User not found");
         }
-
-
     }
-
-
 }

@@ -56,7 +56,6 @@ public class JournalEntryControl {
     {
         workerClass.deleteUserByUsername(username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
     }
 
     @PutMapping("/user/{username}")

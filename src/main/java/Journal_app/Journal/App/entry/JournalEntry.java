@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("JournalEntryTest") //ORM mapping Java class with collection
-@Data //LombokProject - Creating geter and setter in run time
+@Data //LombokProject - Creating getter and setter in run time
 public class JournalEntry {
 
     @Id
